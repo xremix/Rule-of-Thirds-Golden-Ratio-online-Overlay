@@ -3,8 +3,8 @@
 <head>
 	<title>Golden Ratio / Rule of Thirds online overlay</title>
 	<!-- <title>On-Line helper for testing photo for Golden Section (Rule of Thirds, Golden Mean, Golden Ratio, Golden Spiral, Golden Proportion, Golden Triangles) Rule.</title> -->
- 	<meta name="description" content="An online overlay for the Rule of Thirds, Golden Ratio, Golden Section, Golden Spiral, Golden Mean. Rules of Composition.">
- 	<meta name="keywords" content="composition,golden,section,mean,ratio,spiral,proportion,thirds,triangles,photo,photography,art,software,example">
+	<meta name="description" content="An online overlay for the Rule of Thirds, Golden Ratio, Golden Section, Golden Spiral, Golden Mean. Rules of Composition.">
+	<meta name="keywords" content="composition,golden,section,mean,ratio,spiral,proportion,thirds,triangles,photo,photography,art,software,example">
 
 	<!-- https://github.com/jaysalvat/ezdz -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -15,8 +15,8 @@
 			color:#333333;
 			background-color: #ddd;
 			font-size: 16px;
-		   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-		   font-weight: 300;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+			font-weight: 300;
 		}
 		.container{
 			margin-top:20px;
@@ -81,38 +81,38 @@
 		<p class="subtitle">Display the golden ratio or rule of thirds on any image online by entering an URL or selecting an local image.</p>
 		<h3 class="text-center select-image-text">Select an image</h3>
 		<form class="dropzone" action="" id="my-awesome-dropzone">
-		<hr/>
-		<div class="form-image-select-area">
-		<div class="row">
-			<div class="col-xs-5">
-				
-				<input type="file" onchange="previewFile(this)"><br>
-			</div>
-			<div class="col-xs-2 text-center">
-				or
-			</div>
-			<div class="col-xs-5">
-				<div class="form-group">
-					<input type="text" id="inputurl" class="form-control" id="exampleInputPassword1" placeholder="Enter URL"><br>
+			<hr/>
+			<div class="form-image-select-area">
+				<div class="row">
+					<div class="col-xs-5">
+						
+						<input type="file" onchange="previewFile(this)"><br>
+					</div>
+					<div class="col-xs-2 text-center">
+						or
+					</div>
+					<div class="col-xs-5">
+						<div class="form-group">
+							<input type="text" id="inputurl" class="form-control" id="exampleInputPassword1" placeholder="Enter URL"><br>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		</div>
-		<div class="text-center">
-			
-			<div class="radio">
-				<label>
-					<input type="radio" name="optionOverlay" id="optionOverlay1" value="ruleofthirds" checked>
-					Rule of Thirds
-				</label>
+			<div class="text-center">
+				
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionOverlay" id="optionOverlay1" value="ruleofthirds" checked>
+						Rule of Thirds
+					</label>
 
-				<label>
-					<input type="radio" name="optionOverlay" id="optionOverlay2" value="goldenratio">
-					Golden Ratio
-				</label>
+					<label>
+						<input type="radio" name="optionOverlay" id="optionOverlay2" value="goldenratio">
+						Golden Ratio
+					</label>
+				</div>
 			</div>
-		</div>
-		<hr/>
+			<hr/>
 		</form>
 
 		<p class="alert alert-warning warning-text">All images will stay on your computer. No image is going to be uploaded.</p>
@@ -129,57 +129,26 @@
 	<script src="http://jaysalvat.github.io/ezdz/releases/latest/jquery.ezdz.min.js"></script>
 	<script type="text/javascript">
 		'use strict';
-
-
-		$('[type="file"]').ezdz({
-		  text: 'drop a picture',
-		  previewImage: false,  
-		  reject: function(file, errors) {    
-		    if (errors.mimeType) {
-		      alert(file.name + ' must be an image');
-		    }
-		    if (errors.maxWidth) {
-		      alert(file.name + ' must be width:600px max');
-		    }
-		    if (errors.maxHeight) {
-		      alert(file.name + ' must be height:400px max');
-		    }
-		  }
-		});
-		 $('input[type=radio][name=optionOverlay]').change(function() {
-		 	fitOverlay()
-		 });
-
-
-
-		$('#inputurl').on('input',function(e){
-			$('[type="file"]').val('')
-	    	$('#srcImage').attr("src", $('#inputurl').val());
-	    });
 		function previewFile(e) {
-		
-		    var preview = document.querySelector('img');
-		    var file = document.querySelector('input[type=file]').files[0];
-		    console.log(file);
-		    var reader  = new FileReader();
-		    reader.onloadend = function () {
-		    	preview.src = reader.result;
-		    }
+			
+			var preview = document.querySelector('img');
+			var file = document.querySelector('input[type=file]').files[0];
+			console.log(file);
+			var reader  = new FileReader();
+			reader.onloadend = function () {
+				preview.src = reader.result;
+			}
 
-		    if (file) {
-		      reader.readAsDataURL(file);
+			if (file) {
+				reader.readAsDataURL(file);
 			} else {
-			  	preview.src = "";
-	  		}
+				preview.src = "";
+			}
 		}
-
-		$(window).resize(function(){
-			fitOverlay();
-		});
 		function hideOverlay(){
 
-				$(".rule-of-thirds").css("visibility", "hidden");
-				$(".fibonacci-img").css("visibility", "hidden");
+			$(".rule-of-thirds").css("visibility", "hidden");
+			$(".fibonacci-img").css("visibility", "hidden");
 		}
 
 		function fitOverlay(){
@@ -201,7 +170,41 @@
 			$(resizeSelector).width($(imageSelect).width());
 			$(resizeSelector).height($(imageSelect).height());
 		}
-</script>
+		$( document ).ready(function() {
+
+			$('[type="file"]').ezdz({
+				text: 'drop a picture',
+				previewImage: false,  
+				reject: function(file, errors) {    
+					if (errors.mimeType) {
+						alert(file.name + ' must be an image');
+					}
+					if (errors.maxWidth) {
+						alert(file.name + ' must be width:600px max');
+					}
+					if (errors.maxHeight) {
+						alert(file.name + ' must be height:400px max');
+					}
+				}
+			});
+			$('input[type=radio][name=optionOverlay]').change(function() {
+				fitOverlay()
+			});
+
+
+
+			$('#inputurl').on('input',function(e){
+				$('[type="file"]').val('')
+				$('#srcImage').attr("src", $('#inputurl').val());
+			});
+			
+
+			$(window).resize(function(){
+				fitOverlay();
+			});
+			
+		});
+	</script>
 
 </body>
 </html>
