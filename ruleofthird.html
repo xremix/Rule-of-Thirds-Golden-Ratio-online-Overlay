@@ -85,7 +85,7 @@
 			<div class="form-image-select-area">
 				<div class="row">
 					<div class="col-xs-5">
-						
+
 						<input type="file" onchange="previewFile(this)"><br>
 					</div>
 					<div class="col-xs-2 text-center">
@@ -99,7 +99,7 @@
 				</div>
 			</div>
 			<div class="text-center">
-				
+
 				<div class="radio">
 					<label>
 						<input type="radio" name="optionOverlay" id="optionOverlay1" value="ruleofthirds" checked>
@@ -128,16 +128,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="http://jaysalvat.github.io/ezdz/releases/latest/jquery.ezdz.min.js"></script>
 	<script type="text/javascript">
+		/* globals $, console, alert */
 		'use strict';
-		function previewFile(e) {
-			
+		function previewFile() {
+
 			var preview = document.querySelector('img');
 			var file = document.querySelector('input[type=file]').files[0];
 			console.log(file);
 			var reader  = new FileReader();
 			reader.onloadend = function () {
 				preview.src = reader.result;
-			}
+			};
 
 			if (file) {
 				reader.readAsDataURL(file);
@@ -153,7 +154,7 @@
 
 		function fitOverlay(){
 			var imageSelect = '#srcImage';
-			var radioVal = $('input[name=optionOverlay]:checked', '#my-awesome-dropzone').val()
+			var radioVal = $('input[name=optionOverlay]:checked', '#my-awesome-dropzone').val();
 			
 			// var imageSelect = '.ezdz-dropzone img';
 			var resizeSelector = ".rule-of-thirds";
@@ -188,21 +189,18 @@
 				}
 			});
 			$('input[type=radio][name=optionOverlay]').change(function() {
-				fitOverlay()
+				fitOverlay();
 			});
 
-
-
-			$('#inputurl').on('input',function(e){
-				$('[type="file"]').val('')
+			$('#inputurl').on('input',function(){
+				$('[type="file"]').val('');
 				$('#srcImage').attr("src", $('#inputurl').val());
 			});
-			
 
 			$(window).resize(function(){
 				fitOverlay();
 			});
-			
+
 		});
 	</script>
 
