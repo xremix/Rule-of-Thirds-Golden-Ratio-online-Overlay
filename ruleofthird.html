@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Golden Ratio / Rule of Thirds online overlay</title>
+	<!-- <title>On-Line helper for testing photo for Golden Section (Rule of Thirds, Golden Mean, Golden Ratio, Golden Spiral, Golden Proportion, Golden Triangles) Rule.</title> -->
+ 	<meta name="description" content="An online overlay for the Rule of Thirds, Golden Ratio, Golden Section, Golden Spiral, Golden Mean. Rules of Composition.">
+ 	<meta name="keywords" content="composition,golden,section,mean,ratio,spiral,proportion,thirds,triangles,photo,photography,art,software,example">
+
+	<!-- https://github.com/jaysalvat/ezdz -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="http://jaysalvat.github.io/ezdz/releases/latest/jquery.ezdz.min.css" rel="stylesheet">
+	<style type="text/css">
+		body{
+			color:#333333;
+			background-color: #ddd;
+			font-size: 16px;
+		   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+		   font-weight: 300;
+		}
+		.container{
+			margin-top:20px;
+			background-color: white;
+			min-height: 100vh;
+			border-radius: 10px;
+		}
+		h1{
+			margin-top: 30px;
+			margin-bottom: 50px;
+		}
+		img{
+			position: absolute;
+		}
+		hr{
+			margin: 50px 10%;
+		}
+		.subtitle{
+			font-weight: 800;
+			color: #aaa;
+			font-size:18px;
+			/*text-transform: uppercase;*/
+		}
+		.image-container{
+			position: relative;
+			min-height: 80vh;
+		}
+		#srcImage, #rule-of-third{
+			max-width: 100%;
+			max-height: 80vh;
+		}
+		.ezdz-dropzone{
+			width:100%;
+			height:100px;
+			line-height: 80px;
+		}
+		form .form-image-select-area{
+			line-height:80px;
+		}
+		form .form-image-select-area input#inputurl.form-control#inputurl{
+			display: inline-block;		
+		}
+
+		.select-image-text{
+			margin-top:50px;
+			margin-bottom: 30px;
+		}
+		.rule-of-thirds 
+		{
+			stroke:red;
+			fill:red;
+		}
+		.warning-text{
+			margin-top:50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Golden Ratio / Rule of Thirds online overlay</h1>
+
+		<p class="subtitle">Display the golden ratio or rule of thirds on any image online by entering an URL or selecting an local image.</p>
+		<h3 class="text-center select-image-text">Select an image</h3>
+		<form class="dropzone" action="" id="my-awesome-dropzone">
+		<hr/>
+		<div class="form-image-select-area">
+		<div class="row">
+			<div class="col-xs-5">
+				
+				<input type="file" onchange="previewFile(this)"><br>
+			</div>
+			<div class="col-xs-2 text-center">
+				or
+			</div>
+			<div class="col-xs-5">
+				<div class="form-group">
+					<input type="text" id="inputurl" class="form-control" id="exampleInputPassword1" placeholder="Enter URL"><br>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="text-center">
+			
+			<div class="radio">
+				<label>
+					<input type="radio" name="optionOverlay" id="optionOverlay1" value="ruleofthirds" checked>
+					Rule of Thirds
+				</label>
+
+				<label>
+					<input type="radio" name="optionOverlay" id="optionOverlay2" value="goldenratio">
+					Golden Ratio
+				</label>
+			</div>
+		</div>
+		<hr/>
+		</form>
+
+		<p class="alert alert-warning warning-text">All images will stay on your computer. No image is going to be uploaded.</p>
+
+		<div class="image-container">
+			<img src="" id="srcImage" onload="fitOverlay()" onerror="hideOverlay()">
+			<img src="rule-of-thirds.svg" style="visibility: hidden;" class="rule-of-thirds">	
+			<img src="Fibonacci_spiral.svg" style="visibility: hidden;" class="fibonacci-img" width="300" height="300">	
+		</div>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://jaysalvat.github.io/ezdz/releases/latest/jquery.ezdz.min.js"></script>
+	<script type="text/javascript">
+		'use strict';
+
+
+		$('[type="file"]').ezdz({
+		  text: 'drop a picture',
+		  previewImage: false,  
+		  reject: function(file, errors) {    
+		    if (errors.mimeType) {
+		      alert(file.name + ' must be an image');
+		    }
+		    if (errors.maxWidth) {
+		      alert(file.name + ' must be width:600px max');
+		    }
+		    if (errors.maxHeight) {
+		      alert(file.name + ' must be height:400px max');
+		    }
+		  }
+		});
+		 $('input[type=radio][name=optionOverlay]').change(function() {
+		 	fitOverlay()
+		 });
+
+
+
+		$('#inputurl').on('input',function(e){
+			$('[type="file"]').val('')
+	    	$('#srcImage').attr("src", $('#inputurl').val());
+	    });
+		function previewFile(e) {
+		
+		    var preview = document.querySelector('img');
+		    var file = document.querySelector('input[type=file]').files[0];
+		    console.log(file);
+		    var reader  = new FileReader();
+		    reader.onloadend = function () {
+		    	preview.src = reader.result;
+		    }
+
+		    if (file) {
+		      reader.readAsDataURL(file);
+			} else {
+			  	preview.src = "";
+	  		}
+		}
+
+		$(window).resize(function(){
+			fitOverlay();
+		});
+		function hideOverlay(){
+
+				$(".rule-of-thirds").css("visibility", "hidden");
+				$(".fibonacci-img").css("visibility", "hidden");
+		}
+
+		function fitOverlay(){
+			var imageSelect = '#srcImage';
+			var radioVal = $('input[name=optionOverlay]:checked', '#my-awesome-dropzone').val()
+			
+			// var imageSelect = '.ezdz-dropzone img';
+			var resizeSelector = ".rule-of-thirds";
+			// resizeSelector = ".fibonacci-img";
+			if(radioVal == "ruleofthirds"){
+				resizeSelector = ".rule-of-thirds";
+				$(".rule-of-thirds").css("visibility", "visible");
+				$(".fibonacci-img").css("visibility", "hidden");
+			}else if (radioVal == "goldenratio"){
+				resizeSelector = ".fibonacci-img";
+				$(".rule-of-thirds").css("visibility", "hidden");
+				$(".fibonacci-img").css("visibility", "visible");
+			}
+			$(resizeSelector).width($(imageSelect).width());
+			$(resizeSelector).height($(imageSelect).height());
+		}
+</script>
+
+</body>
+</html>

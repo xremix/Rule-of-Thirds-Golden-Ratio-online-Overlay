@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg 
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" viewBox="0 0 300 300" preserveAspectRatio="none">
+<defs>
+<g id="horizontal-lines">
+  <polyline vector-effect="non-scaling-stroke" points="0,100 300,100" />
+  <polyline vector-effect="non-scaling-stroke" points="0,200 300,200" />
+</g>
+<g id="vertical-lines">
+  <polyline vector-effect="non-scaling-stroke" points="100,0 100,300" />
+  <polyline vector-effect="non-scaling-stroke" points="200,0 200,300" />
+</g>
+</defs>
+<!-- <use xlink:href="#horizontal-lines" style="stroke: white; stroke-width: 2"/> -->
+<use xlink:href="#horizontal-lines" style="stroke: gray; stroke-width: 1"/>
+<!-- <use xlink:href="#vertical-lines" style="stroke: white; stroke-width: 4"/> -->
+<use xlink:href="#vertical-lines" style="stroke: gray; stroke-width: 1"/>
+</svg>
